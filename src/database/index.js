@@ -12,6 +12,11 @@ class Database {
   }
 
   init() {
-    this.connection;
+    this.connection = new Sequelize(databaseConfig);
+
+      //array para cada model , quando achar passar conexão
+    models.map(model => model.init(this.connection));
   }
 }
+
+export default new Database();
