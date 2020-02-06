@@ -16,7 +16,7 @@ class SessionController {
     if (!(await user.checkPassword(password))) {
       return res
         .status(401)
-        .json({ error: 'Xiii, parafuso não encaixa na porca!' });
+        .json({ error: 'Xiii, chave não encaixa na fechadura!' });
     }
 
     const { id, name } = user;
