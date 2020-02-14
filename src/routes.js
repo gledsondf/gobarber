@@ -10,7 +10,7 @@ const routes = new Router();
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
-//middlewares
+// middlewares
 routes.use(authMiddleware);
 
 routes.put('/users', UserController.update);
