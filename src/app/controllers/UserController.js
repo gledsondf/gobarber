@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from '../models/User';
+import File from '../models/File';
 
 class UserController {
   async store(req, res) {
@@ -23,13 +24,16 @@ class UserController {
       });
     }
 
-    const { id, name, email, provider } = await User.create(req.body);
+    const { id, name, email, provider, avatar_id } = await User.create(
+      req.body
+    );
 
     return res.json({
       id,
       name,
       email,
-      provider
+      provider,
+      avatar_id
     });
   }
 
@@ -69,6 +73,17 @@ class UserController {
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
       return res.status(401).json({ error: 'Password não corresponde' });
     }
+
+    const avatarExist = await File.findOne({
+      where: { id: req.body.avatar_id }
+    });
+
+    if (!avatarExist) {
+      return res.status(400).json({
+        error: 'avatar não existe'
+      });
+    }
+
     const { id, name, provider } = await user.update(req.body);
 
     return res.json({

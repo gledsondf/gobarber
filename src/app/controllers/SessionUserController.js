@@ -27,12 +27,13 @@ class SessionController {
         .json({ error: 'Xiii, chave não encaixa na fechadura!' });
     }
 
-    const { id, name } = user;
+    const { id, name, provider } = user;
     return res.json({
       user: {
         id,
         name,
-        email
+        email,
+        provider
       }, // coffito@tec
       token: jwt.sign({ id }, authConfig.secret, {
         expiresIn: authConfig.expiresIn
